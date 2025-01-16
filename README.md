@@ -45,8 +45,6 @@ This repository is a collection of all the projects I’ve worked on, showcasing
 - **Technologies**: Python, Regular Expressions, Web Scraping
 - **What You’ll Learn**: Combining web scraping and regex to extract specific data from complex sources and working with pattern matching.
 
----
-
 ## Let's Connect!
 
 Feel free to explore the code, dive into the documentation, and see how I approach coding challenges with Python. If you have any questions or want to discuss these projects in detail, don’t hesitate to reach out!
