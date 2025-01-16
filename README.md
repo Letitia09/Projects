@@ -11,7 +11,7 @@ This repository is a collection of all the projects I’ve worked on, showcasing
 - **File Management**: Automating file sorting and management tasks.
 
 ## Projects
-
+--
 ### 📏 **Project 1: Unit of Measurement Converter**
 - **Description**: A tool that converts between inches, feet, and yards.
 - **Technologies**: Python, Functions, Conditionals, User Input
