@@ -1,0 +1,7 @@
+Instructions
+Download and unarchive fs.zip
+There are total of 200 files in 10 folders. Each file contains 50 numbers.
+When a folder ends with an odd number, I want you to find files that end with an even number.
+In those files, find all the numbers where either the 2nd or the last digit is 3. That is your output.
+Print how many numbers are in your output
+Make a new text file ('hw1_output.txt') with all of those numbers, one number per line.
