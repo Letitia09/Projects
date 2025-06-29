@@ -95,6 +95,7 @@ To develop a comprehensive credit card weekly dashboard that provides real-time 
 - Power BI (Dashboarding, DAX, Data Modeling)  
 - SQL (Data Modeling and Querying)  
 - CSV data handling and preparation
+- ETL (Extract, Transform, Load)
 
 ---
 
