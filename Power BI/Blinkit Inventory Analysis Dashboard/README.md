@@ -1,4 +1,4 @@
-# 📊 Blinkit Inventory Analysis Dashboard
+# 📊 Blinkit Sales Performance & Inventory Analysis Dashboard
 
 ## 🔍 Project Objective
 
@@ -60,10 +60,79 @@ Conduct a comprehensive analysis of:
 
 ---
 
+## 📊 Visualization Components
+
+| Chart Title                              | Type            | Insight Provided                                                   |
+| ---------------------------------------- | --------------- | ------------------------------------------------------------------ |
+| Total Sales by Fat Content               | Donut Chart     | Impact of Low Fat vs Regular items                                 |
+| Total Sales by Item Type                 | Bar Chart       | Item category sales performance                                    |
+| Fat Content by Outlet                    | Stacked Column  | Segment-wise comparison of Fat content across outlet tiers         |
+| Total Sales by Outlet Establishment Year | Line Chart      | Sales performance trend over time                                  |
+| Sales by Outlet Size                     | Donut/Pie Chart | Contribution of outlet sizes (Small, Medium, High)                 |
+| Sales by Outlet Location Type            | Funnel Chart    | Sales breakdown by Tier 1, 2, 3 locations                          |
+| Metrics by Outlet Type                   | Matrix Table    | View of sales, ratings, items sold, and visibility per outlet type |
+
+---
+
 ## 💻 Technologies Used
 
 * **Power BI** – Dashboard creation, modeling, DAX
 * **DAX (Data Analysis Expressions)** – KPI and calculated measure development
 * **Excel** – Initial data review and preprocessing
-* 
+* **Vertabelo (optional)** – Schema modeling and design
+
+---
+
+## 📈 Key Findings
+
+### 🥛 Fat Content Insights
+
+* Regular fat items generate \~82% more total sales than low-fat items.
+* Low-fat items are more diverse (6,000 items) compared to regular (3,000).
+* Both fat categories have nearly identical average sales (\~\$141–\$142).
+* Customer satisfaction is consistent across both fat types (Avg Rating: 4.0).
+
+### 🍎 Item Type Performance
+
+* Top-selling categories: Fruits & Vegetables and Snacks (\$0.18M each).
+* Household items have the highest average sale value (\$149).
+* Seafood and Baking Goods underperform in both total sales and average sales.
+* All item types maintain strong customer satisfaction (Avg Rating: 4.0).
+
+### 🏪 Outlet Size Insights
+
+* Medium-sized outlets have the highest total sales (\$507.90K).
+* Small and high-sized outlets tie for the highest average sales (\$142).
+* Medium outlets stock the most items (4,000+), followed by small and high.
+* Ratings remain stable across all outlet sizes.
+
+### 📍 Outlet Location Insights
+
+* Tier 3 locations lead in total sales (\$472.13K), followed by Tier 2 and Tier 1.
+* Tier 1 lags behind in both sales and item count.
+* Geographic focus on Tier 3 outlets may yield better revenue results.
+
+### 🏗️ Outlet Establishment Year Trends
+
+* Sales peaked in 2018 (\~\$205K), followed by a decline.
+* Post-2020, sales have stabilized around \~\$131K.
+* Outlets established before 2016 tend to generate more consistent revenue.
+
+### 🧾 Outlet Type Breakdown
+
+* Supermarket Type1 leads all others with \$787.55K in total sales and 5,577 items.
+* Grocery Stores have the highest item visibility score (0.10).
+* All outlet types report identical customer ratings (4.0).
+* Supermarket Type2 has the highest average sale per item (\$142).
+
+---
+
+## ✅ Business Recommendations
+
+* **Expand low-fat product offerings** due to higher sales and diversity.
+* **Focus on Tier 3 and medium-sized outlets** for better performance.
+* **Boost inventory and visibility** for underperforming items like seafood.
+* **Analyze 2018 sales spike** for repeatable success patterns.
+* **Improve item visibility** in lower-performing outlet types using strategies from Grocery Stores.
+
 ---
