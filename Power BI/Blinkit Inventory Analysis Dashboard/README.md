@@ -68,7 +68,7 @@ Conduct a comprehensive analysis of:
 | Total Sales by Item Type                 | Bar Chart       | Item category sales performance                                    |
 | Fat Content by Outlet                    | Stacked Column  | Segment-wise comparison of Fat content across outlet tiers         |
 | Total Sales by Outlet Establishment Year | Line Chart      | Sales performance trend over time                                  |
-| Sales by Outlet Size                     | Donut/Pie Chart | Contribution of outlet sizes (Small, Medium, High)                 |
+| Sales by Outlet Size                     | Donut Chart     | Contribution of outlet sizes (Small, Medium, High)                 |
 | Sales by Outlet Location Type            | Funnel Chart    | Sales breakdown by Tier 1, 2, 3 locations                          |
 | Metrics by Outlet Type                   | Matrix Table    | View of sales, ratings, items sold, and visibility per outlet type |
 
@@ -79,7 +79,6 @@ Conduct a comprehensive analysis of:
 * **Power BI** – Dashboard creation, modeling, DAX
 * **DAX (Data Analysis Expressions)** – KPI and calculated measure development
 * **Excel** – Initial data review and preprocessing
-* **Vertabelo (optional)** – Schema modeling and design
 
 ---
 
