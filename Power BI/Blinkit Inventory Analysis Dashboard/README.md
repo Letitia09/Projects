@@ -18,10 +18,10 @@ Conduct a comprehensive analysis of:
 
 ### Key KPIs:
 
-* **Total Sales**
-* **Average Sales**
-* **Number of Items**
-* **Average Rating**
+* **Total Sales**: The overall revenue generated from all items sold.
+* **Average Sales**: The average revenue per sale.
+* **Number of Items**: The total count of different items sold. 
+* **Average Rating**: The average customer rating for items sold.
 
 ---
 
