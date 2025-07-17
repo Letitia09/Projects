@@ -19,5 +19,5 @@ Feel free to explore the code, dive into the documentation, and see how I approa
 ---
 
 📬 **Contact**:  
-- LinkedIn: [https://www.linkedin.com/in/anshu-pulipati/]  
+- LinkedIn: [https://www.linkedin.com/in/pulipa/]  
 - GitHub: [https://github.com/Letitia09/]  
