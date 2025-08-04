@@ -1,0 +1,183 @@
+# Your task:
+#
+# Using the provided dataset, you need to answer questions such as:
+#
+# 1. What percentage of EVs in Washington are Teslas?
+#
+# 2. Top Tesla Models Selling in the area. How much are we making from these models?
+#
+# 3. Tesla vs Competitors - Range and MSRP AVG and Median
+#
+# 4. PHEV vs BEV Trends
+#
+# 5. Top Electric Utilities in Washington for Tesla
+#
+# Deliverable:
+# Doesn't care, just wants to see numbers and maybe some graphs.
+
+#libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+
+#read the data
+df <-
+  read.csv('C:\\Users\\anshu\\Downloads\\Electric_Vehicle_Population_Data.csv')
+df
+
+#clean the data
+cleaned_df <- df |>
+  rename_all( ~ gsub("\\.", "_", .)) |>
+  mutate(
+    Base_MSRP = as.numeric(Base_MSRP),
+    Tesla = ifelse(Make == "TESLA", "TESLA", "OTHER")
+  )
+
+# 1. What percentage of EVs in Washington are Teslas? Tesla/all vehicles*100
+total_vehicles <- nrow(cleaned_df)
+tesla_vehicles_count <- cleaned_df |>
+  filter(Tesla == "TESLA") |>
+  nrow()
+
+tesla_market_share = round(tesla_vehicles_count / total_vehicles * 100, 1)
+
+market_df <- data.frame(
+  Group = c("TESLA","OTHER"),
+  Market_Share = c(tesla_market_share, 100 - tesla_market_share)
+)
+
+market_df <- market_df |> 
+  mutate(
+    Label = paste0(Market_Share,"%"),
+    ypos = cumsum(Market_Share)-0.5 * Market_Share)
+
+ggplot(market_df, aes(x="",y= Market_Share, fill = Group))+
+  geom_col(width = 1) + 
+  coord_polar("y") + 
+  geom_text(aes(y = ypos, label = Label)) +
+  labs(title = "Tesla Market Share in Washington in (%)") + theme_void()
+
+
+# 2. Top Tesla Models Selling in the area. How much are we making from these models?
+make_model_sold <- cleaned_df |>
+  filter(Tesla == "TESLA") |>
+  group_by(Make, Model) |>
+  summarize(count_sold = n(), .groups = "drop") |>
+  arrange(desc(count_sold))
+
+ggplot(make_model_sold,aes(x=reorder(Model,count_sold), y=count_sold)) +
+  geom_col(fill = "dodgerblue") +
+  coord_flip() +
+  labs(title = "Tesla Models sold - All Time") + 
+  theme_minimal()
+
+msrp_by_yr <- cleaned_df |>
+  filter(Base_MSRP > 0 & Tesla == "TESLA") |>
+  group_by(Model_Year, Make, Model) |>
+  summarize(min(Base_MSRP), .groups = "drop") |>
+  arrange(Model_Year, Make, Model)
+
+# There weren't good base msrp data in this dataset - supplementing with online data
+
+df_tesla_prices <-
+  read.csv('C:\\Users\\anshu\\Downloads\\Tesla_Current_Base_Prices.csv')
+
+df_tesla_prices <- df_tesla_prices |>
+  mutate(Model = toupper(Model))
+
+Top_Tesla_Models_Priced <- make_model_sold |>
+  left_join(df_tesla_prices, by = "Model") |>
+  mutate(estimated_revenue = as.numeric(count_sold) * Base_Price_USD)
+
+#final estimation for lifetime sales
+Top_Tesla_Models_Priced <- Top_Tesla_Models_Priced |>
+  filter(!is.na(estimated_revenue)) |>
+  group_by(Model) |>
+  slice_min(Base_Price_USD) |>
+  ungroup()
+
+#next viz:
+ggplot(Top_Tesla_Models_Priced,aes(x=reorder(Model,count_sold), y=count_sold)) +
+  geom_col(fill = "lightgreen") +
+  coord_flip() +
+  labs(title = "Estimated Revenue Per Model") + 
+  scale_y_continuous(labels=label_comma()) +
+  theme_minimal()
+
+# ADD IN
+tesla_sold_by_year <- cleaned_df |>
+  filter(Tesla=="TESLA") %>% 
+  group_by(Model_Year) |>
+  summarize(Count = n()) |>
+  arrange(Model_Year)
+
+ggplot(tesla_sold_by_year, aes(x=Model_Year, y=Count)) +
+  geom_line(color = "dodgerblue", size= 1.0) + 
+  geom_point(color='red', size = 2) +
+  labs(title='Tesla Vehicles Sold By Year') + 
+  theme_minimal()
+
+# 3.Tesla vs Competitors - Range and MSRP - AVG and Median
+#AVG Range
+avg_range_for_EVs <- cleaned_df |>
+  filter(
+    Electric_Vehicle_Type == "Battery Electric Vehicle (BEV)",
+    Electric_Range != 0,
+    Base_MSRP != 0
+  ) |>
+  group_by(Tesla) |>
+  summarize(avg_Range = mean(Electric_Range),
+            avg_MSRP = mean(Base_MSRP))
+#Median Range
+median_range_for_Evs <- cleaned_df |>
+  filter(
+    Electric_Vehicle_Type == "Battery Electric Vehicle (BEV)",
+    Electric_Range != 0,
+    Base_MSRP != 0
+  ) |>
+  group_by(Tesla) |>
+  summarize(median_Range = median(Electric_Range),
+            median_MSRP = mean(Base_MSRP))
+
+#MSRP data isn't fully populated and may skew results
+
+#visualizations for MSRP and Range avg
+ggplot(avg_range_for_EVs, aes(x=Tesla, y=avg_Range))+
+  geom_col(fill='pink') + 
+  labs(title = "Average Electric Range (BEV)") +
+  theme_minimal()
+
+ggplot(avg_range_for_EVs, aes(x=Tesla, y=avg_MSRP))+
+  geom_col(fill='turquoise') + 
+  labs(title = "Average MSRP (BEV)") +
+  theme_minimal()
+
+# 4. PHEV vs BEV Trends
+bhev_vs_bev <- cleaned_df |>
+  group_by(Model_Year, Electric_Vehicle_Type) |>
+  summarize(Count = n(), .groups = "drop")
+
+ggplot(bhev_vs_bev, aes(x = Model_Year, y = Count, color = Electric_Vehicle_Type)) +
+  geom_line(size = 1.1) +
+  geom_point(size = 2) +
+  labs(title = "PHEV vs BEV Trends Over Time") +
+  theme_minimal()
+
+# 5. Top Electric Utilities in Washington for Tesla
+Utility_Count_for_Teslas <- cleaned_df |>
+  filter(Tesla == "TESLA") |>
+  mutate(Electric_Utility = ifelse(Electric_Utility == "", "Unknown", Electric_Utility)) |>
+  group_by(Electric_Utility) |>
+  summarize(Count = n(), .groups = "drop") |>
+  arrange(desc(Count)) |>
+  head(5)
+
+ggplot(Utility_Count_for_Teslas, aes(x = reorder(Electric_Utility, Count), y = Count)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Top Electric Utilities for Tesla in Washington", x = "Utility", y = "Tesla Count") +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 4))
+
+install.packages("flexdashboard")
