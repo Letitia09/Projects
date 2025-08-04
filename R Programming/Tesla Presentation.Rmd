@@ -9,6 +9,7 @@ output:
 ```{r}
 # Dataset Link : https://catalog.data.gov/dataset/electric-vehicle-population-data
 # Tasks : https://cdn-prd.analystbuilder.com/165a7d50-68f9-42b1-89bd-a35d041acf8c/Tesla%20Executive%20Briefing.txt
+# Dashboard : https://rpubs.com/pulipa/Tesla-EV-Analysis
 
 #libraries
 library(dplyr)
